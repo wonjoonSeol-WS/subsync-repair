@@ -37,7 +37,8 @@ class Prepare(TempFolder):
 
     @WINDOWS_ONLY
     def test_a_folder_of_this_account_or_an_administrator_is_used(self):
-        self.assertEqual(datadir.owner_sid(self.tmp), datadir.current_sid())
+        # an elevated administrator's new folders belong to the Administrators group rather than to the account
+        self.assertIn(datadir.owner_sid(self.tmp), {datadir.current_sid(), "S-1-5-32-544"})
         self.assertEqual(datadir.prepare(self.tmp), self.tmp)
         with mock.patch.object(datadir, "owner_sid", return_value="S-1-5-32-544"):
             self.assertEqual(datadir.prepare(self.tmp), self.tmp)

@@ -70,6 +70,18 @@ class Resolve(TempFolder):
         self.assertIsNone(libraries.resolve(str(self.tmp / "outside" / "x.srt")))
         self.assertEqual(libraries.containing(str(self.tmp / "lib" / "Show")), self.tmp / "lib")
 
+    def test_a_library_configured_through_a_link_accepts_the_real_paths_it_hands_out(self):
+        """A mapped drive, a junction or an 8.3 name: the server and the hook queue pass the real path back in."""
+        (self.tmp / "real" / "Show").mkdir(parents=True)
+        (self.tmp / "real" / "Show" / "a.srt").write_bytes(b"")
+        make_link(self.tmp / "configured", self.tmp / "real")
+        libraries = Libraries([self.tmp / "configured"])
+        real = libraries.resolve(str(self.tmp / "configured" / "Show" / "a.srt"))
+        self.assertEqual(real, Path(os.path.realpath(self.tmp / "real" / "Show" / "a.srt")))
+        self.assertEqual(libraries.resolve(str(real)), real)
+        self.assertEqual(libraries.containing(str(real)), self.tmp / "configured")
+        self.assertIsNone(libraries.resolve(str(self.tmp / "elsewhere" / "a.srt")))
+
 
 if __name__ == "__main__":
     unittest.main()

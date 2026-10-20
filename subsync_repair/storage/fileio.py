@@ -189,8 +189,14 @@ def remove_file(path):
     try:
         os.unlink(path)
     except PermissionError:
-        os.chmod(path, stat.S_IWRITE)
+        make_writable(path)
         os.unlink(path)
+
+
+def make_writable(path):
+    """Add the owner's write permission, which on Windows clears the read-only flag that keeps a file from being
+    removed. The other permissions stay: a temporary file may be a hard link to the file just written."""
+    os.chmod(path, stat.S_IMODE(os.lstat(path).st_mode) | stat.S_IWRITE)
 
 
 def discard(tmp):
@@ -204,7 +210,7 @@ def discard(tmp):
                 log.warning("could not remove the temporary file %s: %s", tmp, e)
                 return
             with contextlib.suppress(OSError):
-                os.chmod(tmp, stat.S_IWRITE)
+                make_writable(tmp)
 
 
 def sync_folder(folder):

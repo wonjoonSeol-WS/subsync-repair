@@ -30,15 +30,17 @@ class Libraries:
         return iter(self.roots)
 
     def containing(self, path):
-        """The library folder that holds `path`, judged by the text of the path alone (nothing is looked up)."""
+        """The library folder that holds `path`, as configured or by its real path (a mapped drive's share, a
+        junction's target, an 8.3 name spelled out), judged by the text of the path alone: nothing is looked up."""
         key = lexical_key(path)
-        return next((root for root in self.roots if is_within(key, lexical_key(root))), None)
+        return next((root for root, real_key in zip(self.roots, self.real_keys)
+                     if is_within(key, lexical_key(root)) or is_within(key, real_key)), None)
 
     def resolve(self, path):
         """The real path of the absolute `path` when it lies in a library both as written and after following links,
-        else None. Checking the text first keeps a path outside every library away from the file system, where a UNC
-        path would make Windows contact its host; links inside a library are followed, so a symlink there to a UNC
-        share is contacted (a junction cannot point to one)."""
+        else None. A real path this returned is accepted again. Checking the text first keeps a path outside every
+        library away from the file system, where a UNC path would make Windows contact its host; links inside a
+        library are followed, so a symlink there to a UNC share is contacted (a junction cannot point to one)."""
         if self.containing(path) is None:
             return None
         real = os.path.realpath(path)
