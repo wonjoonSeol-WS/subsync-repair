@@ -337,12 +337,12 @@ class Api(LibraryCase, NoForeignLogging):
         self.assertEqual(self.starts_of(self.dir / "Show S01E01.ko.synced.srt"), [s + 7.0 for s in STARTS])
 
     def test_job_results_carry_no_internal_details_and_the_log_does(self):
-        self.aligner.fail = ("alass-cli was not found", "tools.alass is 'C:\\private\\alass-cli.exe'")
+        self.aligner.fail = ("alass-cli was not found", "tools.alass is 'C:\\internal-detail-7f3a\\alass-cli.exe'")
         with self.assertLogs("subsync_repair.server", "WARNING") as logs:
             result = self.done(self.submit()[1]["id"])["result"]
         self.assertEqual((result["status"], result["note"]), ("error", "alass-cli was not found"))
-        self.assertNotIn("private", json.dumps(result))
-        self.assertIn("private", "\n".join(logs.output))
+        self.assertNotIn("internal-detail-7f3a", json.dumps(result))
+        self.assertIn("internal-detail-7f3a", "\n".join(logs.output))
 
     def test_a_file_deleted_after_queueing_is_reported_as_gone(self):
         gate = threading.Event()
