@@ -1,0 +1,21 @@
+{
+  "target_language": "de",
+  "libraries": [
+    "/path/to/media/Movies",
+    "/path/to/media/Series"
+  ],
+  "skip_dirs": ["extras", "trailers", "featurettes", "behind the scenes", "specials"],
+  "reference_languages": ["ja", "en"],
+  "embedded_reference_languages": ["en", "ja"],
+  "tools": {
+    "alass": "alass-cli",
+    "ffmpeg": "ffmpeg",
+    "ffprobe": "ffprobe",
+    "ffsubsync_python": "",
+    "ffsubsync_libs": []
+  },
+  "sync": {
+    "port": 8778,
+    "extension_ids": []
+  }
+}

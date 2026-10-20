@@ -1,0 +1,6 @@
+* text=auto eol=lf
+# subtitle fixtures keep their exact bytes: line endings, byte order marks and legacy code pages are what they test
+*.srt -text
+*.ass -text
+*.ssa -text
+*.smi -text
