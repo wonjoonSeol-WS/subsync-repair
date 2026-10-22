@@ -77,7 +77,7 @@ file that changed while it was checked is skipped, and backups keep the full pat
 ## Setup
 
 ```
-git clone https://github.com/wonjoonSeol-WS/subsync-repair.git
+git clone https://github.com/wonjoonSeol/subsync-repair.git
 cd subsync-repair
 cp config.example.json config.json
 ```
@@ -185,4 +185,4 @@ Windows, Linux and macOS with Python 3.10 and 3.13.
 
 ## Try my other projects
 
-Like this? I make other small open source tools too: Android apps, a Claude chat game, Claude add-ons and more. See them all at [wonjoonseol-ws.github.io](https://wonjoonseol-ws.github.io/?from=subsync-repair).
+Like this? I make other small open source tools too: Android apps, a Claude chat game, Claude add-ons and more. See them all at [wonjoonseol.github.io](https://wonjoonseol.github.io/?from=subsync-repair).

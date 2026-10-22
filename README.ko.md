@@ -73,7 +73,7 @@ flowchart LR
 ## 설정
 
 ```
-git clone https://github.com/wonjoonSeol-WS/subsync-repair.git
+git clone https://github.com/wonjoonSeol/subsync-repair.git
 cd subsync-repair
 cp config.example.json config.json
 ```
@@ -177,4 +177,4 @@ Python 3.10과 3.13으로 테스트를 실행합니다.
 
 ## 다른 프로젝트도 써 보세요
 
-마음에 드셨다면 제가 만든 다른 오픈소스도 둘러보세요. 안드로이드 앱, Claude 채팅 게임, Claude 애드온 등이 있어요: [wonjoonseol-ws.github.io](https://wonjoonseol-ws.github.io/ko/?from=subsync-repair)
+마음에 드셨다면 제가 만든 다른 오픈소스도 둘러보세요. 안드로이드 앱, Claude 채팅 게임, Claude 애드온 등이 있어요: [wonjoonseol.github.io](https://wonjoonseol.github.io/ko/?from=subsync-repair)
